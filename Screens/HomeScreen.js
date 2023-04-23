@@ -7,12 +7,14 @@ import BottomTabs from '../Components/Home/BottomTabs'
 import { BootomTabsData } from '../Components/Home/BottomTabs'
 import { collectionGroup, onSnapshot } from 'firebase/firestore';
 import {db} from '../firebase'
+import { useState } from 'react'
 
 const query=collectionGroup(db,'posts')
 const HomeScreen = ({navigation}) => {
+  const[post,setPost]=useState([])
   useEffect(()=>{
     onSnapshot(query, (snapshot) => {
-      console.log(snapshot.docs.map(doc => doc.data()));
+      setPost(snapshot.docs.map(doc => doc.data()));
     });
   },[])
     return (
@@ -20,7 +22,7 @@ const HomeScreen = ({navigation}) => {
            <Header />
            <ScrollView>
            <Stories />
-            {Datapost.map((post,index)=>(
+            {post.map((post,index)=>(
                 
                 <Post key={index}post={post} />
             ))}

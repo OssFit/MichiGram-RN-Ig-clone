@@ -27,8 +27,8 @@ const PostHeader = ({ post }) => {
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 5, alignItems: 'center' }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image source={{ uri: post.user_photo }} style={Styles.story} />
-        <Text style={{ color: 'white', fontWeight: 700, marginLeft: 5 }}>{post.username}</Text>
+        <Image source={{ uri: post.profile_picture }} style={Styles.story} />
+        <Text style={{ color: 'white', fontWeight: 700, marginLeft: 5 }}>{post.user}</Text>
       </View>
       <Text style={{ color: 'white', fontWeight: 900 }}>...</Text>
     </View>
@@ -37,7 +37,7 @@ const PostHeader = ({ post }) => {
 
 const PostImage = ({ post }) => (
   <View style={{ width: '100%', height: 450 }}>
-    <Image source={{ uri: post.post_photo }} style={{ height: '100%', resizeMode: 'cover' }} />
+    <Image source={{ uri: post.imageUrl }} style={{ height: '100%', resizeMode: 'cover' }} />
   </View>
 )
 
@@ -71,7 +71,7 @@ const Likes = ({ post }) => (
 const Captions = ({ post }) => (
   <View style={{ flexDirection: 'column', marginLeft: 15. }}>
     <Text style={{ color: 'white' }}><Text style={{ fontWeight: 700 }}>{post.username}</Text>
-      <Text> {post.post_title}</Text>
+      <Text> {post.caption}</Text>
     </Text>
 
   </View>
