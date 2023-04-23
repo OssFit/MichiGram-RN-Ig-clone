@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import Validator from 'email-validator'
 import { getAuth } from 'firebase/auth'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 import {app} from '../../firebase'
 
 const auth=getAuth()
@@ -23,13 +23,14 @@ const SignUpForm = ({navigation}) => {
       const authUser=await createUserWithEmailAndPassword(auth,email,password)
 
       try {
-        const docRef =  await addDoc(collection(db,'users'),{
+        const docRef =  await setDoc(doc(db, "users", authUser.user.email), {
             owner_uid:authUser.user.uid,
             username:username,
             email:authUser.user.email,
             profile_picture: await getRandomProfilePicture()
-        });
-        console.log("Document written with ID: ", docRef.id);
+          })
+          console.log("Document written with ID: ", authUser.user.email);
+    
       } catch (e) {
         console.error("Error adding document: ", e);
       }
